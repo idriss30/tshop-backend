@@ -6,6 +6,6 @@ const productsRoutes = require("./routes/productsRoutes");
 const app = express();
 
 app.use(cors());
-app.use("/api", productsRoutes);
+app.use("/api/shop", productsRoutes);
 
 module.exports = app;
