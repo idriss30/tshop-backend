@@ -7,15 +7,5 @@ const router = express.Router();
 
 // define all the shop routes
 router.get("/products", productCtrl.getProducts);
-
-router.get("/bestSellers", productCtrl.getBestSellers);
-
-router.get("/coats", productCtrl.getCoats);
-
-router.get("/jackets", productCtrl.getJackets);
-
-router.get("/hoodies", productCtrl.getHoodiesAndSweatshirts);
-
-router.get("/tracksuits", productCtrl.getTracksuitsAndBottoms);
-
+router.get("/product/:id", productCtrl.getSingleProduct);
 module.exports = router;
