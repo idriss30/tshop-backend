@@ -7,7 +7,7 @@ let port = process.env.PORT || 5000;
 
 // initialise the connection to the database
 sequelize
-  .sync({ alter: true })
+  .sync()
   .then(() => {
     app.listen(port, () => {
       console.log(`server started  on port ${port}`);

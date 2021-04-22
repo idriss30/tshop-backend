@@ -8,6 +8,7 @@ const User = sequelize.define(
       type: DataTypes.UUID,
       primaryKey: true,
       allowNull: false,
+      defaultValue: UUIDV4,
     },
 
     firstname: {
@@ -27,6 +28,10 @@ const User = sequelize.define(
     email: {
       type: DataTypes.STRING,
       allowNull: false,
+      unique: {
+        args: true,
+        message: "email in use",
+      },
       validate: {
         isEmail: true, // check for email on user page
       },
@@ -48,12 +53,9 @@ const User = sequelize.define(
     state: {
       type: DataTypes.STRING,
       allowNull: false,
-      validate: {
-        max: 2,
-      },
     },
     zip: {
-      type: DataTypes.NUMBER,
+      type: DataTypes.INTEGER,
       allowNull: false,
     },
   },
