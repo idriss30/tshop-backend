@@ -48,9 +48,7 @@ exports.postRegister = async (req, res) => {
           });
           if (saveUser) return res.json({ message: "success" });
         } catch (error) {
-          if (error.code === "ER_DUP_ENTRY") {
-            console.log("fuck off");
-          }
+          return console.log(error);
         }
       }
     } catch (error) {
@@ -65,40 +63,130 @@ exports.postRegister = async (req, res) => {
 
 exports.postLogin = async (req, res) => {
   // get the data from the body
-  let { username, password } = req.body;
+  let { loginUsername, loginPassword } = req.body;
   //find the user
+
   try {
-    let isUser = await User.findOne({
+    const isUser = await User.findOne({
       where: {
-        username,
+        username: loginUsername,
       },
     });
     // send request is there is no user
     if (!isUser) {
       return res.json({ message: "user not found" });
+    } else {
+      // compare passwords
+      const passwordCheck = await bcrypt.compare(
+        loginPassword,
+        isUser.password
+      );
+      if (!passwordCheck) {
+        return res.json({ message: "wrong-pass" });
+      }
+      // create the token
+      try {
+        const token = jwt.sign({ userId: isUser.id }, process.env.SECRET__JWT, {
+          expiresIn: "1h",
+        });
+        if (token) {
+          // send a cookie with the token
+          res.cookie("token", token, { httpOnly: true });
+          res.json({ message: "success", userId: isUser.username });
+        }
+      } catch (error) {
+        return res.json({ message: "error with signing the token" });
+      }
     }
   } catch (error) {
-    res.json({ message: "error fetching user" });
+    return res.json({ message: "error fetching user" });
   }
-  // check the password from the body against crypted version
-  try {
-    let isPasswordVerified = await bcrypt.compare(password, isUser.password);
-    if (!isPasswordVerified) {
-      res.json({ message: "wrong pass" });
-    }
-  } catch (error) {
-    res.json({ message: "error checking password" });
-  }
-
-  // username and pass are verified at this stage,
-  // create the token
-  let token = jwt.sign({ userId: isUser.id }, process.env.SECRET__JWT, {
-    expiresIn: "1h",
-  }); // make the token expires in an hour;
-  // send the cookie back;
-  res.cookie("token", token, { httpOnLy: true });
-  res.json({ message: "success" });
 };
 
 // make the profile controller
-exports.getProfile = async (req, res) => {};
+exports.getProfile = async (req, res) => {
+  // get the token from previous middleware
+  const userId = req.userId;
+  // get the userInfo from the database
+  try {
+    const userData = await User.findByPk(userId);
+    if (!userData) {
+      return res.json({ message: "user-not-found" });
+    }
+
+    // send the userData.
+    res.json({
+      user: {
+        username: userData.username,
+        firstname: userData.firstname,
+        lastname: userData.lastname,
+        email: userData.email,
+        address: userData.address,
+        city: userData.city,
+        state: userData.state,
+        zip: userData.zip,
+      },
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+exports.putUpdateUser = async (req, res) => {
+  // get the data from the req
+  const { ...userData } = req.body;
+  // try to update the user
+  try {
+    const encryptedPass = await bcrypt.hash(userData.password, 10); // encrypt the pass
+
+    const update = await User.update(
+      {
+        firstname: userData.firstname,
+        lastname: userData.lastname,
+        email: userData.email,
+        address: userData.address,
+        city: userData.city,
+        state: userData.state,
+        password: encryptedPass,
+        zip: userData.zip,
+      },
+      { where: { username: req.params.username } }
+    );
+
+    if (!update) {
+      return res.json({ message: "update-error" });
+    }
+    res.clearCookie("token");
+    return res.json({ message: "success" });
+  } catch (error) {
+    return res.json({ message: "error" });
+  }
+};
+
+exports.deleteUser = async (req, res) => {
+  // get the username from the params;
+  const username = req.params.username;
+  // now  delete the user
+  try {
+    const deleteUser = await User.destroy({
+      where: {
+        username,
+      },
+    });
+    if (deleteUser) {
+      res.clearCookie("token");
+      return res.json({ message: "success" });
+    }
+  } catch (error) {
+    return res.json({ message: "error" });
+  }
+};
+
+exports.signout = (req, res) => {
+  try {
+    res.clearCookie("token");
+    return res.json({ message: "success" });
+  } catch (error) {
+    res.json(error);
+  }
+};

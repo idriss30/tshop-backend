@@ -7,7 +7,7 @@ const cookieParser = require("cookie-parser");
 // define the app
 const app = express();
 // cors functionnality
-app.use(cors());
+app.use(cors({ origin: true, credentials: true })); // tell the server to allow browsers to expose response to javascript frontend
 // get data from browser
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
