@@ -190,3 +190,20 @@ exports.signout = (req, res) => {
     res.json(error);
   }
 };
+
+exports.findByUsername = async (req, res) => {
+  const username = req.params.username;
+
+  try {
+    const user = await User.findOne({
+      where: {
+        username,
+      },
+    });
+    if (user) {
+      res.json({ user });
+    }
+  } catch (error) {
+    res.json({ message: "error" });
+  }
+};

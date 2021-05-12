@@ -3,6 +3,8 @@ const cors = require("cors");
 const productsRoutes = require("./routes/productsRoutes");
 const userRoutes = require("./routes/userRoutes");
 const cookieParser = require("cookie-parser");
+const stripeRoutes = require("./routes/stripeRoute");
+const orderRoutes = require("./routes/orderRoutes");
 
 // define the app
 const app = express();
@@ -17,5 +19,7 @@ app.use(cookieParser());
 //main routes
 app.use("/api/shop", productsRoutes);
 app.use("/api/users", userRoutes);
+app.use("/api/stripe", stripeRoutes);
+app.use("/api/cart", orderRoutes);
 
 module.exports = app;
