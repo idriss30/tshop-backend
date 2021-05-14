@@ -17,6 +17,7 @@ exports.postOrders = async (req, res) => {
       zip: orderDetail.orderInfo.zip,
       totalOrder: orderDetail.orderInfo.total,
       items: orderDetail.orderInfo.items,
+      userId: orderDetail.orderInfo.id || null,
     });
 
     if (saveOrder) {
@@ -41,8 +42,9 @@ exports.getOrder = async (req, res) => {
         userId,
       },
     });
+
     if (myOrders) {
-      return res.json({ orders });
+      res.json({ orders: myOrders });
     }
   } catch (error) {
     res.json({ message: "error" });

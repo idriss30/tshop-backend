@@ -14,4 +14,5 @@ router.get("/user/:username", userCtrl.findByUsername);
 router.put("/update/:username", userCtrl.putUpdateUser);
 router.delete("/delete/:username", userCtrl.deleteUser);
 router.get("/signout", checkAuth, userCtrl.signout);
+router.post("/news", userCtrl.postSubscribeNewsLetter);
 module.exports = router;

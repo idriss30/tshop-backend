@@ -1,4 +1,5 @@
 const User = require("../models/User");
+const NewsLetter = require("../models/Newsletter");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
@@ -91,7 +92,7 @@ exports.postLogin = async (req, res) => {
         });
         if (token) {
           // send a cookie with the token
-          res.cookie("token", token, { httpOnly: true });
+          res.cookie("token", token, { httpOnly: true, sameSite: "Lax" });
           res.json({ message: "success", userId: isUser.username });
         }
       } catch (error) {
@@ -125,6 +126,7 @@ exports.getProfile = async (req, res) => {
         city: userData.city,
         state: userData.state,
         zip: userData.zip,
+        id: userData.id,
       },
     });
   } catch (error) {
@@ -205,5 +207,24 @@ exports.findByUsername = async (req, res) => {
     }
   } catch (error) {
     res.json({ message: "error" });
+  }
+};
+
+// newsLetter
+exports.postSubscribeNewsLetter = async (req, res) => {
+  // get the email from the body;
+  const email = req.body.email;
+
+  //save the email in the database;
+  try {
+    const saveEmail = await NewsLetter.create({
+      email,
+    });
+    if (!saveEmail) {
+      return res.json({ message: "problem" });
+    }
+    res.json({ success: "success" });
+  } catch (error) {
+    return res.json();
   }
 };
