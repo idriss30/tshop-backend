@@ -19,6 +19,6 @@
   "scripts": {
     "start": "nodemon server.js"
   },
-  "author": "idriss cissoko",
+  "author": "idriss",
   "license": "ISC"
 }
