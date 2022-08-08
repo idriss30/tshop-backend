@@ -20,7 +20,8 @@
     "jest-extended": "^3.0.2"
   },
   "scripts": {
-    "start": "nodemon server.js"
+    "start": "nodemon server.js",
+    "test": "jest"
   },
   "author": "idriss",
   "license": "ISC"
