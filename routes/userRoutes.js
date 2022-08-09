@@ -1,7 +1,7 @@
 // import the dependencies
 const express = require("express");
 const userCtrl = require("../controllers/userCtrl");
-const checkAuth = require("../middleware/auth");
+const checkAuth = require("../controllers/middleware/auth");
 
 // create the router
 const router = express.Router();
@@ -14,5 +14,5 @@ router.get("/user/:username", userCtrl.findByUsername);
 router.put("/update/:username", userCtrl.putUpdateUser);
 router.delete("/delete/:username", userCtrl.deleteUser);
 router.get("/signout", checkAuth, userCtrl.signout);
-router.post("/news", userCtrl.postSubscribeNewsLetter);
+
 module.exports = router;

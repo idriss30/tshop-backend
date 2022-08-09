@@ -1,5 +1,5 @@
 // create the get products Ctrollr
-const Product = require("../models/Products");
+const Product = require("../database/models/Products");
 
 exports.getProducts = async (req, res) => {
   // get all the products from the database
