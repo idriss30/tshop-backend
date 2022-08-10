@@ -6,25 +6,20 @@ exports.getProducts = async (req, res) => {
   try {
     const products = await Product.findAll();
 
-    res.json({ products });
+    res.status(200).json({ products });
   } catch (error) {
-    res.json({ error });
+    res.status(400).json({ error: error });
   }
 };
 
 // get single Product
 exports.getSingleProduct = async (req, res) => {
-  try {
-    const id = req.params.id;
-    const product = await Product.findOne({
-      where: {
-        id: id,
-      },
-    });
-    if (product) {
-      res.json({ product });
-    }
-  } catch (error) {
-    res.json(error);
+  const id = req.params.id;
+  const product = await Product.findOne({ where: { id } });
+  if (!product) {
+    const error = new Error("product was not found");
+    res.status(500).json({ error: error });
+  } else {
+    res.status(200).json({ product });
   }
 };
