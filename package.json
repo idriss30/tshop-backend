@@ -23,7 +23,7 @@
   },
   "scripts": {
     "start": "nodemon server.js",
-    "test": "jest"
+    "test": "jest --runInBand"
   },
   "author": "idriss",
   "license": "ISC"
