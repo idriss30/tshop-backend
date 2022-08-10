@@ -1,5 +1,6 @@
 module.exports = [
   {
+    id: 1,
     category: "man",
     bestSeller: true,
     name: "ZIP MOCK NECK T-SHIRT",
@@ -8,6 +9,7 @@ module.exports = [
     imageName: "zipBlack",
   },
   {
+    id: 2,
     category: "man",
     bestSeller: false,
     name: "ZIP MOCK NECK T-SHIRT",
@@ -16,6 +18,7 @@ module.exports = [
     imageName: "zipBlue",
   },
   {
+    id: 3,
     category: "man",
     bestSeller: false,
     name: "ZIP MOCK NECK T-SHIRT",
@@ -24,6 +27,7 @@ module.exports = [
     imageName: "zipGreen",
   },
   {
+    id: 4,
     category: "man",
     bestSeller: false,
     name: "ZIP MOCK NECK T-SHIRT",
@@ -33,6 +37,7 @@ module.exports = [
   },
 
   {
+    id: 5,
     category: "man",
     bestSeller: true,
     name: "COMBINATION PRINT T-SHIRT",
@@ -42,6 +47,7 @@ module.exports = [
     imageName: "combination",
   },
   {
+    id: 6,
     category: "man",
     bestSeller: false,
     name: "COMBINATION BASKETBALL T-SHIRT",
@@ -51,6 +57,7 @@ module.exports = [
     imageName: "print",
   },
   {
+    id: 7,
     category: "man",
     bestSeller: false,
     name: "PRINT T-SHIRT PARIS",
@@ -60,6 +67,7 @@ module.exports = [
     imageName: "paris",
   },
   {
+    id: 8,
     category: "man",
     bestSeller: false,
     name: "EMBROIDERED SHIRT",
@@ -69,6 +77,7 @@ module.exports = [
     imageName: "embroidered",
   },
   {
+    id: 9,
     category: "man",
     bestSeller: true,
     name: "TEXT PRINT T-SHIRT",
@@ -78,6 +87,7 @@ module.exports = [
     imageName: "black",
   },
   {
+    id: 10,
     category: "man",
     bestSeller: false,
     name: "Graphic PRINT T-SHIRT",
@@ -87,6 +97,7 @@ module.exports = [
     imageName: "graphic",
   },
   {
+    id: 11,
     category: "man",
     bestSeller: false,
     name: "Graphic PRINT T-SHIRT",
@@ -96,6 +107,7 @@ module.exports = [
     imageName: "taupe",
   },
   {
+    id: 12,
     category: "man",
     bestSeller: false,
     name: "Graphic PRINT T-SHIRT",
@@ -105,6 +117,7 @@ module.exports = [
     imageName: "black2",
   },
   {
+    id: 13,
     category: "woman",
     bestSeller: true,
     name: "VENTED COTTON T-SHIRT",
@@ -114,6 +127,7 @@ module.exports = [
     imageName: "ventedBlack",
   },
   {
+    id: 14,
     category: "woman",
     bestSeller: false,
     name: "VENTED COTTON T-SHIRT",
@@ -123,6 +137,7 @@ module.exports = [
     imageName: "ventedBlue",
   },
   {
+    id: 15,
     category: "woman",
     bestSeller: false,
     name: "VENTED COTTON T-SHIRT",
@@ -132,6 +147,7 @@ module.exports = [
     imageName: "ventedTaupe",
   },
   {
+    id: 16,
     category: "woman",
     bestSeller: true,
     name: "SHORT SLEEVE RIBBED T-SHIRT",
@@ -140,6 +156,7 @@ module.exports = [
     imageName: "second",
   },
   {
+    id: 17,
     category: "woman",
     bestSeller: false,
     name: "SHORT SLEEVE RIBBED T-SHIRT",
@@ -148,6 +165,7 @@ module.exports = [
     imageName: "third",
   },
   {
+    id: 18,
     category: "woman",
     bestSeller: false,
     name: "SHORT SLEEVE RIBBED T-SHIRT",
@@ -156,6 +174,7 @@ module.exports = [
     imageName: "fourth",
   },
   {
+    id: 19,
     category: "woman",
     bestSeller: true,
     name: "T-SHIRT WITH BUTTONS",
@@ -165,6 +184,7 @@ module.exports = [
     imageName: "woman",
   },
   {
+    id: 20,
     category: "woman",
     bestSeller: false,
     name: "V-NECK T-SHIRT",
@@ -174,6 +194,7 @@ module.exports = [
     imageName: "vneck",
   },
   {
+    id: 21,
     category: "woman",
     bestSeller: false,
     name: "WASHED CROP TOP",
