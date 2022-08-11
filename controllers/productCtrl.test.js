@@ -23,15 +23,15 @@ test("get all products from the database valid request", async () => {
 
 test("return error with bad get products request", async () => {
   await sequelize.drop(); // force a bad request to throw error
-
-  const badGetProductRequest = await request(app)
-    .get("/api/shop/products")
-    .expect(400)
-    .expect("Content-type", "application/json; charset=utf-8");
-
-  expect(() => {
-    badGetProductRequest();
-  }).toThrow();
+  try {
+    await request(app)
+      .get("/api/shop/products")
+      .expect(400)
+      .expect("Content-type", "application/json; charset=utf-8");
+  } catch (error) {
+    let err = new Error("can't fetch products");
+    expect(error.message).toEqual(err.message);
+  }
 });
 
 test('fetch single products from database "get single route', async () => {

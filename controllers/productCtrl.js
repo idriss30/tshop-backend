@@ -8,7 +8,8 @@ exports.getProducts = async (req, res) => {
 
     res.status(200).json({ products });
   } catch (error) {
-    res.status(400).json({ error: error });
+    let errorMsg = new Error("can't fetch products");
+    res.status(400).json({ error: errorMsg });
   }
 };
 
