@@ -1,10 +1,6 @@
 const request = require("supertest");
 const app = require("../app");
-const sequelize = require("../database/config/db.config");
 
-beforeAll(async () => {
-  await sequelize.sync({ force: true });
-});
 test("submitting valid post request to newsLetter Route", async () => {
   const postResponse = await request(app)
     .post("/api/news/email")
