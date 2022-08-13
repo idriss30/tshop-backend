@@ -1,11 +1,7 @@
 const Order = require("../database/models/Orders");
 
 exports.postOrders = async (req, res) => {
-  // get the order details
   const { ...orderDetail } = req.body;
-  // try to save it to the database and return a message
-  // split the arr to turn into a string;
-
   try {
     const saveOrder = await Order.create({
       first: orderDetail.orderInfo.first,
