@@ -1,13 +1,55 @@
 const { Sequelize } = require("sequelize");
 require("dotenv").config();
-const mysql = require("mysql2/promise");
+const mysql = require("mysql2");
 
 const environment = process.env.ENV || "development";
 // create the connection
+
 let sequelize;
-if (environment === "production") {
-  sequelize = new Sequelize(
-    process.env.DATABASE__NAME,
+
+const makeDatabases = () => {
+  const sqlConnection = mysql.createConnection({
+    host: "localhost",
+    user: "root",
+    password: "rootpassword",
+  });
+
+  sqlConnection.query(
+    `CREATE DATABASE IF NOT EXISTS test_${process.env.JEST_WORKER_ID}`,
+    function (err) {
+      if (err) return console.log(err);
+      console.log(` created database test_${process.env.JEST_WORKER_ID}`);
+    }
+  );
+  sqlConnection.end(function (err) {
+    if (err) return console.log(err);
+    console.log("connection closed");
+  });
+};
+
+const settinUpEnvironment = async () => {
+  if (environment === "production") {
+    return (sequelize = new Sequelize(
+      process.env.DATABASE__NAME,
+      process.env.DATABASE__USER,
+      process.env.DATABASE__PASS,
+      {
+        host: "localhost",
+        dialect: "mysql",
+        logging: false,
+      }
+    ));
+  } else {
+    makeDatabases();
+  }
+};
+
+(() => {
+  let item = settinUpEnvironment().then((result) => (sequelize = result));
+  if (environment === "production") return item;
+
+  return (sequelize = new Sequelize(
+    `test_${process.env.JEST_WORKER_ID}`,
     process.env.DATABASE__USER,
     process.env.DATABASE__PASS,
     {
@@ -15,23 +57,7 @@ if (environment === "production") {
       dialect: "mysql",
       logging: false,
     }
-  );
-} else {
-  (async () => {
-    const connection = await mysql.createConnection({
-      host: "localhost",
-      user: "root",
-      password: "rootpassword",
-    });
-
-    const workers = parseInt(process.env.JEST_WORKERS || "1");
-
-    for (let i = 0; i < workers; i++) {
-      const databaseName = `dozotest_${i}`;
-      await connection.query(`DROP DATABASE IF EXISTS ${databaseName}`);
-      await connection.query(`CREATE DATABASE ${databaseName}`);
-    }
-  })();
-}
+  ));
+})();
 
 module.exports = sequelize;
