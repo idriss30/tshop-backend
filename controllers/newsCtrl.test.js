@@ -1,7 +1,6 @@
 const request = require("supertest");
 const app = require("../app");
-let sequelize = require("../database/config/db.config");
-const { Sequelize } = require("sequelize");
+
 require("dotenv").config();
 
 test("submitting valid post request to newsLetter Route", async () => {
