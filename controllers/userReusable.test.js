@@ -9,6 +9,7 @@ const {
   createToken,
   decodeToken,
   getByUsername,
+  updateUser,
 } = require("./userReusable");
 
 const userInfo = {
@@ -148,5 +149,47 @@ describe("unit/integration testing user features", () => {
   test("getting invalid user by username getByUsername function", async () => {
     const wrongUserRequest = await getByUsername("jean");
     expect(wrongUserRequest).toBe(false);
+  });
+
+  test("updating user info valid user updateUser function", async () => {
+    const req = {
+      params: {
+        username: userInfo.username,
+      },
+    };
+    const newInfo = {
+      firstname: "john",
+      lastname: "doe",
+      email: "johndoe@email.com",
+      address: userInfo.address,
+      city: userInfo.city,
+      state: userInfo.state,
+      zip: userInfo.zip,
+    };
+
+    const updateUserRequest = await updateUser(newInfo, req);
+    expect(updateUserRequest).toBe(true);
+  });
+
+  test("updating wrong user updateUser function", async () => {
+    const newInfo = {
+      firstname: "john",
+      lastname: "doe",
+      email: "johndoe@email.com",
+      address: userInfo.address,
+      city: userInfo.city,
+      state: userInfo.state,
+      zip: userInfo.zip,
+    };
+    const req = {
+      params: {
+        username: "teddie",
+      },
+    };
+    try {
+      await updateUser(newInfo, req);
+    } catch (error) {
+      expect(error.message).toEqual("can not update user");
+    }
   });
 });

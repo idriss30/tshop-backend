@@ -79,7 +79,7 @@ const getByUsername = async (username) => {
   return user;
 };
 
-const updateUser = async ({ user }, req) => {
+const updateUser = async ({ ...user }, req) => {
   let putRequest = await User.update(
     {
       firstname: user.firstname,
@@ -93,7 +93,7 @@ const updateUser = async ({ user }, req) => {
     },
     { where: { username: req.params.username } }
   );
-  if (!putRequest) throw new Error("problem updating user");
+  if (!putRequest) throw Error("problem updating user");
   return true;
 };
 
