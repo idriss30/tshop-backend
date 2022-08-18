@@ -13,18 +13,19 @@ const makeDatabases = () => {
     user: "root",
     password: "rootpassword",
   });
-
-  sqlConnection.query(
-    `CREATE DATABASE IF NOT EXISTS test_${process.env.JEST_WORKER_ID}`,
-    function (err) {
+  if (process.env.JEST_WORKER_ID) {
+    sqlConnection.query(
+      `CREATE DATABASE IF NOT EXISTS test_${process.env.JEST_WORKER_ID}`,
+      function (err) {
+        if (err) return console.log(err);
+        console.log(` created database test_${process.env.JEST_WORKER_ID}`);
+      }
+    );
+    sqlConnection.end(function (err) {
       if (err) return console.log(err);
-      console.log(` created database test_${process.env.JEST_WORKER_ID}`);
-    }
-  );
-  sqlConnection.end(function (err) {
-    if (err) return console.log(err);
-    console.log("connection closed");
-  });
+      console.log("connection closed");
+    });
+  }
 };
 
 const settinUpEnvironment = async () => {
