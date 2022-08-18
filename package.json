@@ -23,7 +23,7 @@
   },
   "scripts": {
     "start": "nodemon server.js",
-    "test": "jest"
+    "test": "jest --NODE_ENV=test"
   },
   "author": "idriss",
   "license": "ISC"

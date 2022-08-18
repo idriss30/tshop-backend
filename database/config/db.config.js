@@ -2,7 +2,7 @@ const { Sequelize } = require("sequelize");
 require("dotenv").config();
 const mysql = require("mysql2");
 
-const environment = process.env.ENV || "development";
+const environment = process.env.NODE_ENV || "test";
 // create the connection
 
 let sequelize;
