@@ -1,35 +1,40 @@
 const bcrypt = require("bcrypt");
 const User = require("../database/models/User");
+const { Op } = require("sequelize");
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
 
 const uniqueUsernameOrEmail = async (username, email) => {
-  const isInDatabase = await User.findAll({ where: { username, email } });
-  if (!isInDatabase) return true;
+  const isInDatabase = await User.findAll({
+    where: {
+      [Op.or]: [{ username }, { email }],
+    },
+  });
+
+  if (isInDatabase.length < 1) return true;
   return false;
 };
 
 const creaTePassword = async (password) => {
   let saltRounds = 10;
-  const encryptedPass = await bcrypt.hash(saltRounds, password);
-  if (!encryptedPass) throw new Error("can't encrypt password try later");
-  return encryptedPass;
+  try {
+    let encryptedPass = await bcrypt.hash(password, saltRounds);
+    return encryptedPass;
+  } catch (error) {
+    error.message = "can't encrypt password try later";
+  }
 };
 
 const checkPassword = async (submitedPassword, password) => {
-  let isValid = await bcrypt.compare(submitedPassword, password);
-  isValid ? true : false;
+  const isItValid = await bcrypt.compare(submitedPassword, password);
+  if (isItValid) return true;
+  return false;
 };
 
 const createUser = async ({ ...userInfo }) => {
-  const isUnique = await uniqueUsernameOrEmail(
-    userInfo.username,
-    userInfo.email
-  );
-  if (!isUnique) return false;
-  const encryptedPassword = await creaTePassword(userInfo.password);
-  if (!encryptedPassword) return false;
   try {
+    await uniqueUsernameOrEmail(userInfo.username, userInfo.email);
+    const encryptedPassword = await creaTePassword(userInfo.password);
     await User.create({
       username: userInfo.username,
       firstname: userInfo.firstname,
@@ -49,19 +54,19 @@ const createUser = async ({ ...userInfo }) => {
 };
 
 const createToken = (userId) => {
-  const token = jwt.sign({ userId }, process.env.SECRET_JWT, {
+  const token = jwt.sign({ userId }, process.env.SECRET__JWT, {
     expiresIn: "1h",
   });
-  if (!token) throw new Error("token not created");
+  if (!userId || !token) throw Error("can't create token");
   return token;
 };
 
 const decodeToken = (token) => {
   let verifiedToken = jwt.verify(
     token,
-    process.env.SECRET_JWT,
+    process.env.SECRET__JWT,
     (err, decode) => {
-      if (err) throw new Error("token verification error");
+      if (err) throw Error("token verification error");
       return decode;
     }
   );
