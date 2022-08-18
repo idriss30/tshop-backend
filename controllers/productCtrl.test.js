@@ -6,11 +6,10 @@ const Product = require("../database/models/Products");
 const sequelize = require("../database/config/db.config");
 
 beforeEach(async () => {
+  await sequelize.sync({ force: true });
   await Product.bulkCreate(items);
 });
-afterEach(async () => {
-  await sequelize.sync({ force: true });
-});
+
 test("get all products from the database valid request", async () => {
   const getProductsResponse = await request(app)
     .get("/api/shop/products")
