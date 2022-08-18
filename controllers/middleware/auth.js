@@ -1,18 +1,16 @@
-const jwt = require("jsonwebtoken");
 const { decodeToken } = require("../userReusable");
 require("dotenv").config();
 
-const checkAuth = async (req, res, next) => {
-  const tokenCookie = req.cookies.token;
-  if (!tokenCookie)
-    return res.status(403).json({ error: new Error("authentication failed") });
-  let decodedToken = decodeToken(tokenCookie);
-  if (!decodedToken) {
-    res.clearCookie("token");
-    return res.status(403).json({ error: new Error("authentication failed") });
+const checkAuth = (req, res, next) => {
+  try {
+    const tokenCookie = req.cookies.token;
+    const decodedToken = decodeToken(tokenCookie);
+    req.userId = decodedToken;
+    next();
+  } catch (error) {
+    error.message = "authentication failed";
+    res.status(403).json({ error: error.message });
   }
-  req.userId = decodedToken;
-  next();
 };
 
 module.exports = checkAuth;
