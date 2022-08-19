@@ -1,5 +1,5 @@
 let sequelize = require("./config/db.config");
 
 beforeEach(async () => {
-  //sequelize.sync({ force: true });
+  // await sequelize.sync({ force: true });
 });
