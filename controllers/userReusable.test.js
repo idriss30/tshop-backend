@@ -186,10 +186,7 @@ describe("unit/integration testing user features", () => {
         username: "teddie",
       },
     };
-    try {
-      await updateUser(newInfo, req);
-    } catch (error) {
-      expect(error.message).toEqual("can not update user");
-    }
+    const wrongUpdate = await updateUser(newInfo, req);
+    expect(wrongUpdate).toBe(false);
   });
 });
