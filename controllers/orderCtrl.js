@@ -1,48 +1,29 @@
-const Order = require("../database/models/Orders");
+const Order = require("../database/models/Orders.js");
 
 exports.postOrders = async (req, res) => {
-  const { ...orderDetail } = req.body;
   try {
-    const saveOrder = await Order.create({
-      first: orderDetail.orderInfo.first,
-      last: orderDetail.orderInfo.last,
-      email: orderDetail.orderInfo.email,
-      address: orderDetail.orderInfo.address,
-      city: orderDetail.orderInfo.city,
-      state: orderDetail.orderInfo.state,
-      zip: orderDetail.orderInfo.zip,
-      totalOrder: orderDetail.orderInfo.total,
-      items: orderDetail.orderInfo.items,
-      userId: orderDetail.orderInfo.id || null,
+    const { ...order } = req.body.order;
+    await Order.create({
+      first: order.first,
+      last: order.last,
+      email: order.email,
+      address: order.address,
+      city: order.city,
+      state: order.state,
+      zip: order.zip,
+      totalOrder: order.total,
+      items: order.items,
+      userId: order.id || null,
     });
-
-    if (saveOrder) {
-      res.json({ message: "success" });
-    }
+    res.status(201).json({ message: "success" });
   } catch (error) {
-    res.json({ error });
+    res.status(400).json({ error: "can not create order" });
   }
 };
 
 exports.getOrder = async (req, res) => {
-  // get the userId
-  const userId = req.params.id;
-  if (!userId) {
-    return res.json({ message: "no-id" });
-  }
-
-  // query the database to retrieve the orders
-  try {
-    const myOrders = await Order.findAll({
-      where: {
-        userId,
-      },
-    });
-
-    if (myOrders) {
-      res.json({ orders: myOrders });
-    }
-  } catch (error) {
-    res.json({ message: "error" });
-  }
+  const first = req.params.first;
+  const order = await Order.findAll({ where: { first } });
+  if (order.length > 0) return res.status(200).json({ orders: order });
+  res.status(400).json({ error: "no orders found" });
 };

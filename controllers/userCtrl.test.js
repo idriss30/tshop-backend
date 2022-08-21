@@ -1,7 +1,5 @@
-const supertest = require("supertest");
 const request = require("supertest");
 const app = require("../app.js");
-const User = require("../database/models/User");
 
 const { getByUsername, createToken } = require("./userReusable");
 
