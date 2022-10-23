@@ -26,7 +26,7 @@ exports.postLogin = async (req, res) => {
     await checkPassword(password, getUser.password);
     const token = createToken(getUser.id);
     res.cookie("token", token, { httpOnly: true, sameSite: "Strict" });
-    res.status(201).json({ message: "success" });
+    res.status(201).json({ user: getUser });
   } catch (error) {
     return res.status(400).json({ message: "can not logged in" });
   }

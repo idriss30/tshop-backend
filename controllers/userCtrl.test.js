@@ -42,7 +42,8 @@ describe("user features testing routes", () => {
       .send({ username: user.username, password: user.password })
       .expect(201)
       .expect("Content-type", "application/json; charset=utf-8");
-    expect(loginResponse.body).toEqual({ message: "success" });
+    expect(loginResponse.body.user.email).toEqual(user.email);
+    expect(loginResponse.body.user.username).toEqual(user.username);
   });
 
   test("bad login Request wrong password or username", async () => {
