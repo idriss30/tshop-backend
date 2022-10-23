@@ -99,7 +99,7 @@ module.exports = [
   {
     id: 11,
     category: "man",
-    bestSeller: false,
+    bestSeller: true,
     name: "Graphic PRINT T-SHIRT",
     description:
       "Round neck T-shirt with short sleeves. Contrasting graphic prints at front and back.",
@@ -139,7 +139,7 @@ module.exports = [
   {
     id: 15,
     category: "woman",
-    bestSeller: false,
+    bestSeller: true,
     name: "VENTED COTTON T-SHIRT",
     description:
       "T-shirt made of 100% cotton. Round neck and short sleeves. Side vents at hem.",
@@ -196,11 +196,20 @@ module.exports = [
   {
     id: 21,
     category: "woman",
-    bestSeller: false,
+    bestSeller: true,
     name: "WASHED CROP TOP",
     description:
       "Due to the dyeing process, the print on each item is unique and special and may differ slightly from the one pictured.",
     price: 30,
     imageName: "washed",
+  },
+  {
+    id: 22,
+    category: "woman",
+    bestSeller: true,
+    name: "HALTERNECK BODYSUIT",
+    description: "Halter neck bodysuit. Button snap button closure",
+    price: 30,
+    imageName: "asia",
   },
 ];
