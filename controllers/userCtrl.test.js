@@ -53,7 +53,7 @@ describe("user features testing routes", () => {
       .expect(400)
       .expect("Content-type", "application/json; charset=utf-8");
 
-    expect(badLoginResponse.body).toEqual({ message: "can not logged in" });
+    expect(badLoginResponse.body).toEqual({ message: "can not log in" });
   });
 
   test("get profile route valid user", async () => {

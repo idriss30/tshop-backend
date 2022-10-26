@@ -18,17 +18,24 @@ exports.postRegister = async (req, res) => {
   res.status(400).json({ error: "can not create user" });
 };
 
+/*  const token = createToken(getUser.id);
+ res.cookie("token", token, { httpOnly: true, sameSite: "Strict" });
+ res.status(201).json({ user: getUser }); */
 exports.postLogin = async (req, res) => {
   let username = req.body.username,
     password = req.body.password;
-  try {
-    const getUser = await getByUsername(username);
-    await checkPassword(password, getUser.password);
-    const token = createToken(getUser.id);
-    res.cookie("token", token, { httpOnly: true, sameSite: "Strict" });
-    res.status(201).json({ user: getUser });
-  } catch (error) {
-    return res.status(400).json({ message: "can not logged in" });
+  const isUser = await getByUsername(username);
+  if (isUser) {
+    const isValidPass = await checkPassword(password, isUser.password);
+    if (isValidPass) {
+      const token = createToken(isUser.id);
+      res.cookie("token", token, { httpOnly: true, sameSite: "Strict" });
+      return res.status(201).json({ user: isUser });
+    } else {
+      return res.status(400).json({ message: "can not log in" });
+    }
+  } else {
+    return res.status(400).json({ message: "can not log in" });
   }
 };
 
