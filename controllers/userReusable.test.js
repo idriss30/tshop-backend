@@ -158,8 +158,6 @@ describe("unit/integration testing user features", () => {
       },
     };
     const newInfo = {
-      firstname: "john",
-      lastname: "doe",
       email: "johndoe@email.com",
       address: userInfo.address,
       city: userInfo.city,
@@ -173,8 +171,6 @@ describe("unit/integration testing user features", () => {
 
   test("updating wrong user updateUser function", async () => {
     const newInfo = {
-      firstname: "john",
-      lastname: "doe",
       email: "johndoe@email.com",
       address: userInfo.address,
       city: userInfo.city,

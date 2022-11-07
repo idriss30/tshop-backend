@@ -82,8 +82,6 @@ const getByUsername = async (username) => {
 const updateUser = async ({ ...user }, req) => {
   const response = await User.update(
     {
-      firstname: user.firstname,
-      lastname: user.lastname,
       email: user.email,
       address: user.address,
       city: user.city,
