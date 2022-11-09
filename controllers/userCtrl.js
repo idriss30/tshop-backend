@@ -18,9 +18,6 @@ exports.postRegister = async (req, res) => {
   res.status(400).json({ error: "can not create user" });
 };
 
-/*  const token = createToken(getUser.id);
- res.cookie("token", token, { httpOnly: true, sameSite: "Strict" });
- res.status(201).json({ user: getUser }); */
 exports.postLogin = async (req, res) => {
   let username = req.body.username,
     password = req.body.password;
@@ -30,7 +27,7 @@ exports.postLogin = async (req, res) => {
     if (isValidPass) {
       const token = createToken(isUser.id);
       res.cookie("token", token, { httpOnly: true, sameSite: "Strict" });
-      return res.status(201).json({ user: isUser });
+      return res.status(201).json({ token });
     } else {
       return res.status(400).json({ message: "can not log in" });
     }
