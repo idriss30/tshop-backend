@@ -22,6 +22,7 @@ exports.postLogin = async (req, res) => {
   let username = req.body.username,
     password = req.body.password;
   const isUser = await getByUsername(username);
+  const rejectResponse = res.status(400).json({ message: "can not log in" });
   if (isUser) {
     const isValidPass = await checkPassword(password, isUser.password);
     if (isValidPass) {
@@ -29,10 +30,10 @@ exports.postLogin = async (req, res) => {
       res.cookie("token", token, { httpOnly: true, sameSite: "Strict" });
       return res.status(201).json({ token });
     } else {
-      return res.status(400).json({ message: "can not log in" });
+      return rejectResponse;
     }
   } else {
-    return res.status(400).json({ message: "can not log in" });
+    return rejectResponse;
   }
 };
 
