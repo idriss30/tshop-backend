@@ -22,18 +22,18 @@ exports.postLogin = async (req, res) => {
   let username = req.body.username,
     password = req.body.password;
   const isUser = await getByUsername(username);
-  const rejectResponse = res.status(400).json({ message: "can not log in" });
+
   if (isUser) {
     const isValidPass = await checkPassword(password, isUser.password);
     if (isValidPass) {
       const token = createToken(isUser.id);
       res.cookie("token", token, { httpOnly: true, sameSite: "Strict" });
-      return res.status(201).json({ token });
+      return res.status(201).json({ user: isUser });
     } else {
-      return rejectResponse;
+      return res.status(400).json({ message: "can not log in" });
     }
   } else {
-    return rejectResponse;
+    return res.status(400).json({ message: "can not log in" });
   }
 };
 
