@@ -53,8 +53,7 @@ exports.putUpdateUser = async (req, res) => {
   let password = await creaTePassword(user.password);
   user.password = password;
   const canUpdate = await updateUser({ ...user }, req);
-  if (canUpdate == true)
-    return res.clearCookie("token").status(200).json({ message: "success" });
+  if (canUpdate == true) return res.status(200).json({ message: "success" });
   res.status(403).json({ message: "can not update profile" });
 };
 
