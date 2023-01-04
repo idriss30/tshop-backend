@@ -14,7 +14,7 @@ let port = process.env.PORT || 5000;
 User.hasMany(Order, { foreignKey: "userId" });
 Order.belongsTo(User);
 sequelize
-  .sync()
+  .sync({ force: true })
   .then(async () => {
     const products = await Product.findAll();
     if (products.length == 0) await Product.bulkCreate(items);

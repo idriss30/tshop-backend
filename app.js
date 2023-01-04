@@ -18,6 +18,9 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
 //main routes
+app.get("/", (req, res) => {
+  res.send("welcome to tshop-backend, hope you'll enjoy using the api");
+});
 app.use("/api/shop", productsRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/stripe", stripeRoutes);
