@@ -46,18 +46,18 @@ $ cd tshop-backend
 $ npm install
 
 # create a development database
-$ use mysql workbench of any tool you prefer
+$ use mysql workbench or any tool you prefer
 
 # create environment variables
 $ create a .env file
 
 # you will need six environment variables
-KEY <!--- which is your stripe key starting with sk  -->
-NODE_ENV=production <!--- for npm script to run a development server -->
-SECRET__JWT <!--- to encode and decode jsonwebtoken for authentication -->
+KEY  # which is your stripe key starting with sk
+NODE_ENV=production  # for npm script to run a development server
+SECRET__JWT # to encode and decode jsonwebtoken for authentication
 DATABASE__NAME
 DATABASE__USER
-DATABASE__PASS  <!--- database password -->
+DATABASE__PASS  # database password
 
 # Run the app
 $ npm run start
@@ -73,15 +73,15 @@ $ npm run test
   src="./coverageImage.png"
   alt="Alt text"
   title="Optional title"
-  style="display: inline-block; margin: 0 auto; max-width: 500px">
+  style="display: inline-block; margin: 0 auto; max-width: 600px; max-height:800px">
 
 # Author
 
-Author is Me Idris
+Created by me Idris.</br>
 You can find me on [LinkedIn](www.linkedin.com/in/idrissciss)
 
 # Support
 
 If you learn anything from this project and/or would like to support:</br>
-Please give a star. I would appreciate.
+Please give a star, I would appreciate.</br>
 Thanks for your time.
