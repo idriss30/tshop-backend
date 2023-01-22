@@ -71,9 +71,8 @@ $ npm run test
 
 <img
   src="./coverageImage.png"
-  alt="Alt text"
-  title="Optional title"
-  style="display: inline-block; margin: 0 auto; max-width: 600px; max-height:800px">
+  alt="coverage image"
+  style="display: inline-block; margin: 0 auto; max-width: 600px; max-height:800px"/>
 
 # Author
 
