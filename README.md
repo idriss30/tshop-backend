@@ -1,22 +1,87 @@
-# dozo
-ecommerce powered by react, express, and mysql
+# tshop Backend
 
-Sequelize orm is used to create the models.
+Backend Api for a React ecommerce minimum viable product.
+Follow this link to see the live version [Tshop](https://idrisscissoko.com/tshop/).
 
-It covers global state management with React Context.
+You can also have a look at the [front end code](https://github.com/idriss30/t-shop).
 
-authentication,
+# Prerequisites
 
-stripe integration.
+- basic knowledge of database creation
+- mysql workbench to create or modify database elements
 
-Cookies and session storage
+# Technology used
 
-You can check the front end here: https://github.com/idriss30/dozo-frontEnd
+- mysql2
+- sequelize
+- bcrypt
+- express
+- jsonwebtoken
+- cookie-parser
+- stripe
+- jest
+- supertest
 
-# To get started 
+# Key features
 
-npm run start
+- authentication.
+- Models creation, querying, and association.
+- Payment integration.
+- setting up a test environment.
+- dealing with shared ressources in a test environment.
+- Unit, integration, e2e tests.
 
-npm run build
+# How to use
 
-If you believe you have a better approach to something, please submit a pull request.
+To clone and run this application, you'll need [Git](https://git-scm.com) and [Node.js](https://nodejs.org/en/download/) (which comes with [npm](http://npmjs.com)) installed on your computer. From your command line:
+
+```bash
+# Clone this repository
+$ git clone https://github.com/idriss30/tshop-backend.git
+
+# Go into the repository
+$ cd tshop-backend
+
+# Install dependencies
+$ npm install
+
+# create a development database
+$ use mysql workbench of any tool you prefer
+
+# create environment variables
+$ create a .env file
+
+# you will need six environment variables
+KEY <!--- which is your stripe key starting with sk  -->
+NODE_ENV=production <!--- for npm script to run a development server -->
+SECRET__JWT <!--- to encode and decode jsonwebtoken for authentication -->
+DATABASE__NAME
+DATABASE__USER
+DATABASE__PASS  <!--- database password -->
+
+# Run the app
+$ npm run start
+
+# Run the test
+$ npm run test
+
+```
+
+# Test Coverage
+
+<img
+  src="./coverageImage.png"
+  alt="Alt text"
+  title="Optional title"
+  style="display: inline-block; margin: 0 auto; max-width: 500px">
+
+# Author
+
+Author is Me Idris
+You can find me on [LinkedIn](www.linkedin.com/in/idrissciss)
+
+# Support
+
+If you learn anything from this project and/or would like to support:</br>
+Please give a star. I would appreciate.
+Thanks for your time.
