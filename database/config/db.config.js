@@ -10,8 +10,8 @@ let sequelize;
 const makeDatabases = () => {
   const sqlConnection = mysql.createConnection({
     host: "localhost",
-    user: "root",
-    password: "rootpassword",
+    user: process.env.DATABASE__USER,
+    password: process.env.DATABASE__PASS,
   });
   if (process.env.JEST_WORKER_ID) {
     sqlConnection.query(
