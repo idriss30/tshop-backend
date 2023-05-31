@@ -1,6 +1,6 @@
 # tshop Backend
 
-Backend Api for a React ecommerce minimum viable product.
+Api for a React ecommerce minimum viable product.
 Follow this link to see the live version [Tshop](https://idrisscissoko.com/tshop/).
 
 You can also have a look at the [front end code](https://github.com/idriss30/t-shop).
